@@ -1,0 +1,60 @@
+#include <iostream>
+#include <vector>
+#include <numeric>
+#include <cstdlib>
+#include <optional>
+#include <random>
+#include <cmath>
+
+std::optional<size_t> count_permutation(const std::vector<uint32_t>& shipments) {
+    uint32_t total = std::accumulate(shipments.begin(), shipments.end(), 0u);  // Sum of all shipments
+    size_t n = shipments.size();
+
+    if (total % n != 0) {
+        return std::nullopt;
+    }
+
+    uint32_t target = total / n;  
+    size_t moves = 0;
+    int excess = 0;  
+
+    for (auto load : shipments) {
+        excess += load - target;
+        moves += std::abs(excess); 
+    }
+
+    return moves;
+}
+
+std::vector<uint32_t> gen_shipments(size_t n) {
+    std::vector<uint32_t> shipments(n);
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_int_distribution<uint32_t> dis(10, 99);
+
+    for (size_t i = 0; i < n; ++i) {
+        shipments[i] = dis(gen);
+    }
+
+    return shipments;
+}
+
+int main() {
+    std::vector<uint32_t> shipments = {8, 2, 4};
+    auto result = count_permutation(shipments);
+
+    if (result) {
+        std::cout << "Moves required to balance shipments: " << *result << std::endl;
+    } else {
+        std::cout << "Not possible to balance shipments evenly." << std::endl;
+    }
+
+    auto generated_shipments = gen_shipments(5);
+    std::cout << "Generated shipments: ";
+    for (auto load : generated_shipments) {
+        std::cout << load << " ";
+    }
+    std::cout << std::endl;
+
+    return 0;
+}
