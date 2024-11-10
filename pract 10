@@ -1,0 +1,69 @@
+#include <iostream>
+#include <vector>
+#include <cstdlib>
+#include <ctime>
+#include <iomanip>
+#include <climits>
+
+std::vector<int> gen_random_vector(size_t n) {
+    std::vector<int> data;
+    data.reserve(n);
+    for (size_t i = 0; i < n; ++i) {
+        data.push_back(10 + rand() % 90); 
+    }
+    return data;
+}
+
+void min_adjacent_sum(const std::vector<int>& data, int& min_sum, size_t& index1, size_t& index2) {
+    min_sum = INT_MAX; 
+    index1 = 0;
+    index2 = 1;
+    
+    for (size_t i = 0; i < data.size() - 1; ++i) {
+        int sum = data[i] + data[i + 1];
+        if (sum < min_sum) {
+            min_sum = sum;
+            index1 = i;
+            index2 = i + 1;
+        }
+    }
+}
+
+
+void display_result(const std::vector<int>& data, int min_sum, size_t index1, size_t index2) {
+    std::cout << "Data: ";
+    for (int num : data) {
+        std::cout << std::setw(3) << num;
+    }
+    std::cout << "\n";
+
+    std::cout << "Indexes: ";
+    for (size_t i = 0; i < data.size(); ++i) {
+        if (i == index1) {
+            std::cout << "[" << i << "]";
+        } else if (i == index2) {
+            std::cout << "[" << i << "]";
+        } else {
+            std::cout << " " << i;
+        }
+    }
+    std::cout << "\n";
+
+    std::cout << "Min adjacent sum = " << data[index1] << " + " << data[index2] << " = " << min_sum
+              << " at indexes: " << index1 << " and " << index2 << "\n";
+}
+
+int main() {
+    std::srand(static_cast<unsigned int>(std::time(0))); 
+    
+    auto data = gen_random_vector(20);
+    
+    int min_sum;
+    size_t index1, index2;
+    
+    min_adjacent_sum(data, min_sum, index1, index2);
+    
+    display_result(data, min_sum, index1, index2);
+
+    return 0;
+}
