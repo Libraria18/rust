@@ -1,0 +1,45 @@
+#include <iostream>
+#include <vector>
+#include <set>
+
+struct Point {
+    int x, y;
+};
+
+struct Rectangle {
+    Point a; 
+    Point b; 
+};
+
+int areaOccupied(const std::vector<Rectangle>& rectangles) {
+    std::set<std::pair<int, int>> occupiedPoints;
+    
+    for (const auto& rect : rectangles) {
+        for (int x = rect.a.x; x < rect.b.x; ++x) {
+            for (int y = rect.a.y; y < rect.b.y; ++y) {
+                occupiedPoints.insert({x, y}); 
+            }
+        }
+    }
+
+    return occupiedPoints.size();
+}
+
+std::vector<Rectangle> testData() {
+    return {
+        {{2, 4}, {5, 10}}, 
+        {{3, 6}, {13, 8}}, 
+        {{10, 2}, {14, 10}} 
+    };
+}
+
+int main() {
+
+    std::vector<Rectangle> rectangles = testData();
+    
+    int occupiedArea = areaOccupied(rectangles);
+    
+    std::cout << "Occupied Area: " << occupiedArea << std::endl;
+
+    return 0;
+}
