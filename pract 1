@@ -1,0 +1,15 @@
+#include <stdio.h>
+#include <math.h>
+
+int main() {
+    double x, y;
+
+    printf("Введіть значення х: ");
+    scanf("%lf", &x);
+
+    y = tan(sqrt(exp(x + 2))) / sin((7 * x / 4) - 0.001);
+
+    printf("Значення y: %lf\n", y);
+
+    return 0;
+}
