@@ -1,0 +1,27 @@
+#include <iostream>
+#include <string>
+
+const int WIDTH = 11;  
+const int HEIGHT = 7;  
+
+int main() {
+    std::string output;
+
+    for (int i = 0; i < HEIGHT; i++) {
+        for (int j = 0; j < WIDTH; j++) {
+            if (i == 0 || i == HEIGHT - 1) {  
+                output += '*';
+            } else if (j == 0 || j == WIDTH - 1) {  
+                output += '*';
+            } else if (j == i || j == WIDTH - i - 1) {  
+                output += '*';
+            } else {
+                output += ' ';  
+            }
+        }
+        output += '\n'; 
+    }
+
+    std::cout << output; 
+    return 0;
+}
