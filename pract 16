@@ -1,0 +1,30 @@
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+bool is_solution(int m, int u, int x, int a, int s, int l, int o, int n) {
+  
+    int muxa = 1000 * m + 100 * u + 10 * x + a;
+    int slon = 1000 * s + 100 * l + 10 * o + n;
+    
+    return muxa * a == slon;
+}
+
+int main() {
+    std::vector<int> digits = {1, 2, 3, 4, 5, 6, 7, 8};  
+    int solution_count = 0; 
+    
+    do {
+        int m = digits[0], u = digits[1], x = digits[2], a = digits[3];
+        int s = digits[4], l = digits[5], o = digits[6], n = digits[7];
+
+        if (is_solution(m, u, x, a, s, l, o, n)) {
+            solution_count++;
+            std::cout << "Solution: " << m << u << x << a << " * " << a << " = " << s << l << o << n << std::endl;
+        }
+    } while (std::next_permutation(digits.begin(), digits.end()));  
+    
+    std::cout << "Total solutions: " << solution_count << std::endl;
+
+    return 0;
+}
