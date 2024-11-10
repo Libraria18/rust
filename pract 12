@@ -1,0 +1,35 @@
+#include <iostream>
+#include <vector>
+#include <string>
+
+
+std::vector<std::string> gray(unsigned int n) {
+    if (n == 0) {
+        return {""}; 
+    }
+   
+    std::vector<std::string> previous = gray(n - 1);
+    std::vector<std::string> result;
+
+    for (const std::string& code : previous) {
+        result.push_back("0" + code);
+    }
+
+    for (auto it = previous.rbegin(); it != previous.rend(); ++it) {
+        result.push_back("1" + *it);
+    }
+
+    return result;
+}
+
+int main() {
+    unsigned int n = 4; 
+    std::vector<std::string> gray_codes = gray(n);
+
+    std::cout << "Gray code for n = " << n << ":" << std::endl;
+    for (const std::string& code : gray_codes) {
+        std::cout << code << std::endl;
+    }
+
+    return 0;
+}
