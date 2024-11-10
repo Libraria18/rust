@@ -1,0 +1,25 @@
+#include <iostream>
+#include <string>
+
+const int SIZE = 5; 
+
+int main() {
+    int height = 2 * SIZE - 1; 
+    std::string output;
+
+    for (int i = 0; i < height; i++) {
+        int stars = (i < SIZE) ? (i * 2 + 1) : ((height - i - 1) * 2 + 1);
+        int spaces = (height - stars) / 2;
+
+        for (int j = 0; j < spaces; j++) {
+            output += ' ';
+        }
+        for (int j = 0; j < stars; j++) {
+            output += '*';
+        }
+        output += '\n';
+    }
+
+    std::cout << output; 
+    return 0;
+}
