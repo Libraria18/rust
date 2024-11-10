@@ -1,0 +1,40 @@
+#include <iostream>
+#include <string>
+#include <vector>
+#include <cassert>
+
+std::string rotate(const std::string& s, int n) {
+    int len = s.length();
+    if (len == 0) return s;  
+    
+    int shift = ((n % len) + len) % len;  
+    
+   
+    return s.substr(len - shift) + s.substr(0, len - shift);
+}
+
+void test_rotate() {
+    std::string s = "abcdefgh";  
+    std::vector<std::pair<int, std::string>> shifts = {
+        {0, "abcdefgh"},
+        {8, "abcdefgh"},
+        {-8, "abcdefgh"},
+        {1, "habcdefg"},
+        {2, "ghabcdef"},
+        {10, "ghabcdef"},
+        {-1, "bcdefgha"},
+        {-2, "cdefghab"},
+        {-10, "cdefghab"}
+    };
+    
+    for (const auto& [n, expected] : shifts) {
+        assert(rotate(s, n) == expected && "Test failed");
+    }
+    
+    std::cout << "All tests passed.\n";
+}
+
+int main() {
+    test_rotate();
+    return 0;
+}
